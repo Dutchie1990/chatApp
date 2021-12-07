@@ -11,7 +11,7 @@ const server = http.createServer(app);
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'https://react-chatting-app-v1.herokuapp.com/',
     methods: ['GET', 'POST'],
   },
 });
