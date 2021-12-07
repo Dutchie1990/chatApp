@@ -1,22 +1,19 @@
 const http = require('http');
 const express = require('express');
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
+const cors = require('cors');
 
 const PORT = process.env.PORT || 5000;
 
 const router = require('./router');
 
 const app = express();
+app.use(router);
+app.use(cors());
+
 const server = http.createServer(app);
 
-const io = require('socket.io')(server, {
-  allowRequest: (req, callback) => {
-    const noOriginHeader = req.headers.origin === undefined;
-    callback(null, noOriginHeader);
-  },
-});
-
-app.use(router);
+const io = require('socket.io')(server, {});
 
 io.on('connection', (socket) => {
   socket.on('join', ({ name, room }, callback) => {
