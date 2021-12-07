@@ -9,11 +9,12 @@ const router = require('./router');
 
 const app = express();
 app.use(router);
-app.use(cors());
 
 const server = http.createServer(app);
 
-const io = require('socket.io')(server, {});
+const io = require('socket.io')(server, {
+  cors: 'https://61af71bda18bcef28df4e189--laughing-fermat-2459b0.netlify.app/',
+});
 
 io.on('connection', (socket) => {
   socket.on('join', ({ name, room }, callback) => {
