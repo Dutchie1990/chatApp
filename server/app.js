@@ -10,10 +10,9 @@ const app = express();
 const server = http.createServer(app);
 
 const io = require('socket.io')(server, {
-  cors: {
-    origin:
-      'https://61af71bda18bcef28df4e189--laughing-fermat-2459b0.netlify.app',
-    methods: ['GET', 'POST'],
+  allowRequest: (req, callback) => {
+    const noOriginHeader = req.headers.origin === undefined;
+    callback(null, noOriginHeader);
   },
 });
 
